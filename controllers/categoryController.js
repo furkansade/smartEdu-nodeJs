@@ -15,19 +15,3 @@ exports.createOneCategory = async (req, res) => {
     });
   }
 };
-
-// exports.getAllCategories = async (req, res) => {
-//     try {
-//       const categories = await Category.find();
-  
-//       res.status(200).render('categories', {
-//         categories,
-//         pageName: 'categories',
-//       });
-//     } catch (error) {
-//       res.status(400).json({
-//         status: 'fail',
-//         error,
-//       });
-//     }
-//   };
