@@ -7,10 +7,12 @@ const mongoose = require('mongoose');
 const pageRoute = require('./routes/pageRoute');
 const courseRoute = require('./routes/courseRoute');
 
+mongoose.set('strictQuery', false);
+
 const app = express();
 
 //connectDB//
-mongoose.connect('mongodb://localhost:27017/smartEduDB').then(() => {
+mongoose.connect('mongodb://127.0.0.1:27017/smartEduDB').then(() => {
   console.log('smartEduDB connected successfuly!');
 });
 
@@ -19,6 +21,8 @@ app.set('view engine', 'ejs');
 
 // middleWares //
 app.use(express.static('public')); // static file -> public
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', pageRoute);
 app.use('/courses', courseRoute);
