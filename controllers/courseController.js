@@ -46,10 +46,13 @@ exports.getAllCourses = async (req, res) => {
 
 exports.getOneCourse = async (req, res) => {
   try {
+
+    const categories = await Category.find();  
     const course = await Course.findOne({ slug: req.params.slug });
 
     res.status(200).render('course', {
       course,
+      categories,
       pageName: 'courses',
     });
   } catch (error) {
