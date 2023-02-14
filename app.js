@@ -1,9 +1,18 @@
+//thirdPartPackages//
 const express = require('express');
 const ejs = require('ejs');
+const mongoose = require('mongoose');
 
-const pageRoute = require('./routes/pageRoute')
+//myCreatePackages//
+const pageRoute = require('./routes/pageRoute');
+const courseRoute = require('./routes/courseRoute');
 
 const app = express();
+
+//connectDB//
+mongoose.connect('mongodb://localhost:27017/smartEduDB').then(() => {
+  console.log('smartEduDB connected successfuly!');
+});
 
 // templateEngine //
 app.set('view engine', 'ejs');
@@ -12,7 +21,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public')); // static file -> public
 
 app.use('/', pageRoute);
-
+app.use('/courses', courseRoute);
 
 const port = 3000;
 app.listen(port, () => {
