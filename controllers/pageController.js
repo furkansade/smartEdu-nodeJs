@@ -22,3 +22,9 @@ exports.getLoginPage = (req, res) => {
     pageName: 'login',
   });
 };
+
+exports.getContactPage = (req, res) => {
+  res.status(200).render('contact', {
+    pageName: 'contact',
+  });
+}; 

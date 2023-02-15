@@ -9,5 +9,7 @@ router.route('/').get(pageController.getHomePage); // http://localhost:3000/
 router.route('/about').get(pageController.getAboutPage); // http://localhost:3000/about
 router.route('/register').get(redirectMiddleware, pageController.getRegisterPage);
 router.route('/login').get(redirectMiddleware, pageController.getLoginPage);
+router.route('/contact').get(pageController.getContactPage);
+
 
 module.exports = router;
