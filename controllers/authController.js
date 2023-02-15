@@ -27,20 +27,18 @@ exports.loginOneUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       bcrypt.compare(password, user.password, (err, same) => {
-          // USER SESSION
-          if(same){
-            req.session.userID = user._id;
-            res.status(200).redirect('/users/dashboard');
-          }
-          else {
-            req.flash('error' , 'Your password is not correct!');
-            res.status(400).redirect('/login')
-          }
+        // USER SESSION
+        if (same) {
+          req.session.userID = user._id;
+          res.status(200).redirect('/users/dashboard');
+        } else {
+          req.flash('error', 'Your password is not correct!');
+          res.status(400).redirect('/login');
+        }
       });
-    }
-    else {
-      req.flash('error' , 'User is not exist!');
-      res.status(400).redirect('/login')
+    } else {
+      req.flash('error', 'User is not exist!');
+      res.status(400).redirect('/login');
     }
   } catch (error) {
     res.status(400).json({
@@ -62,11 +60,27 @@ exports.getDashboardPage = async (req, res) => {
   );
   const categories = await Category.find();
   const courses = await Course.find({ user: req.session.userID });
+  const users = await User.find();
 
   res.status(200).render('dashboard', {
     pageName: 'dashboard',
     user,
     categories,
     courses,
+    users,
   });
+};
+
+exports.deleteOneUser = async (req, res) => {
+  try {
+    await User.findByIdAndRemove(req.params.id);
+    await Course.deleteMany({ user: req.params.id });
+
+    res.status(200).redirect('/users/dashboard');
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  }
 };
