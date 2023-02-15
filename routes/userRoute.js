@@ -10,4 +10,3 @@ router.route('/logout').get(authController.logoutOneUser);
 router.route('/dashboard').get(authMiddleware, authController.getDashboardPage);
 
 module.exports = router;
-
