@@ -4,6 +4,7 @@ const categoryController = require('../controllers/categoryController');
 const router = express.Router();
 
 router.route('/').post(categoryController.createOneCategory); 
+router.route('/:id').delete(categoryController.deleteOneCategory); 
 
 
 

@@ -24,11 +24,17 @@
 									</div>
 									<div class="post-content">
 										<div class="post-date">
-											<a href="/courses?categories=<%= course.category.slug %>">
-												<span class="day btn btn-sm">
-													<%= course.category.name %>
-												</span>
-											</a>
+											<% if (user && !(user.courses.includes(course._id))) { %>
+												<div class="d-flex justify-content-end">
+													<form method="POST" action="/courses/enroll">
+														<input type="hidden" name="course_id" value="<%= course._id %>">
+														<button type="submit"
+															class="btn btn-outline-primary rounded text-dark">
+															<span>Enroll!</span>
+														</button>
+													</form>
+												</div>
+												<% } %>
 										</div>
 										<div class="meta-info-blog">
 											<span><i class="fa fa-calendar"></i> <a href="#">May 11, 2015</a> </span>
@@ -45,17 +51,7 @@
 												<%= course.description %>
 											</blockquote>
 										</div>
-										<% if (user && !(user.courses.includes(course._id))) { %>
-											<div class="d-flex justify-content-end">
-												<form method="POST" action="/courses/enroll">
-													<input type="hidden" name="course_id" value="<%= course._id %>">
-													<button type="submit"
-														class="btn btn-outline-primary rounded text-dark">
-														<span>Enroll!</span>
-													</button>
-												</form>
-											</div>
-											<% } %>
+										
 									</div>
 								</div>
 
