@@ -1,241 +1,236 @@
 <%- include('templates/_header') %>
 
-<body class="host_version">
+	<body class="host_version">
 
-<%- include('templates/_loader') %>
+		<%- include('templates/_loader') %>
 
-<%- include('templates/_navbar') %>
+			<%- include('templates/_navbar') %>
 
-<% if(user) { %>
+				<% if(user) { %>
 
-	<% if(user.role==='student' ) { %>
+					<% if(user.role==='student' ) { %>
 
-		<div class="all-title-box">
-			<div class="container text-center">
-				<h1>
-					<em>
-						<%= user.name %>
-					</em>
-					<span class="m_1">STUDENT</span>
-				</h1>
-			</div>
-		</div>
-
-		<div id="overviews" class="section wb">
-			<div class="container">
-				<div class="row d-lex justify-content-center">
-
-					<div class="col-lg-12 blog-post-single">
-						<div class="blog-author">
-							<div class="author-bio">
-								<h3 class="author_name">
-									<em><strong>
+						<div class="all-title-box">
+							<div class="container text-center">
+								<h1>
+									<em>
 										<%= user.name %>
-									</em></strong>
-									Your Enroll Courses:
-								</h3>							
+									</em>
+									<span class="m_1">STUDENT</span>
+								</h1>
 							</div>
 						</div>
 
-					</div><!-- end col -->
-					
-				</div><!-- end row -->
+						<div id="overviews" class="section wb">
+							<div class="container">
+								<div class="row d-lex justify-content-center">
 
-				<div class="row mt-5">
+									<div class="col-lg-12 blog-post-single">
+										<div class="blog-author">
+											<div class="author-bio">
+												<h3 class="author_name">
+													<em><strong>
+															<%= user.name %>
+													</em></strong>
+													Your Enroll Courses:
+												</h3>
+											</div>
+										</div>
 
-					<% for(let i = 0; i < user.courses.length; i++) { %>
-					<div class="col-lg-6 col-md-6 col-12">
-						<div class="course-item mb-5">
-							<div class="image-blog">
-								<a href="/courses/<%= user.courses[i].slug %>">
-									<img src="/images/blog_1.jpg" alt="" class="img-fluid">
-								</a>
-							</div>
-							<div class="course-br">
-								<div class="course-title">
-									<h2><a href="/courses/<%= user.courses[i].slug %>" title=""><%= user.courses[i].name %></a></h2>
-								</div>
-								<div class="course-desc">
-										<p>
-											<%= user.courses[i].description.substring(0, 100) + "..." %>
-										</p>
-									</div>
-								<div class="d-flex justify-content-end">
-									<form method="POST" action="/courses/release">
-										<input type="hidden" name="course_id" value="<%= user.courses[i]._id %>">
-										<button type="submit" class="btn btn-outline-danger rounded text-dark">
-											<span>Release!</span>
-										</button>
-									</form>
-								</div>
-							</div>				
-						</div>
-					</div><!-- end col -->
-					<% } %>
+									</div><!-- end col -->
 
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</div><!-- end section -->
+								</div><!-- end row -->
 
-		<% } %>
+								<div class="row mt-5">
 
+									<% for(let i=0; i < user.courses.length; i++) { %>
+										<div class="col-lg-6 col-md-6 col-12">
+											<div class="course-item mb-5">
+												<div class="image-blog">
+													<a href="/courses/<%= user.courses[i].slug %>">
+														<img src="/images/blog_1.jpg" alt="" class="img-fluid">
+													</a>
+												</div>
+												<div class="course-br">
+													<div class="course-title">
+														<h2><a href="/courses/<%= user.courses[i].slug %>" title="">
+																<%= user.courses[i].name %>
+															</a></h2>
+													</div>
+													<div class="course-desc">
+														<p>
+															<%= user.courses[i].description.substring(0, 100) + "..." %>
+														</p>
+													</div>
+													<div class="d-flex justify-content-end">
+														<form method="POST" action="/courses/release">
+															<input type="hidden" name="course_id" value="<%= user.courses[i]._id %>">
+															<button type="submit" class="btn btn-outline-danger rounded text-dark">
+																<span>Release!</span>
+															</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div><!-- end col -->
+										<% } %>
 
-	<% if(user.role==='teacher' ) { %>
+								</div><!-- end row -->
+							</div><!-- end container -->
+						</div><!-- end section -->
 
-		<div class="all-title-box">
-			<div class="container text-center">
-				<h1>
-					<em>
-						<%= user.name %>
-					</em>
-					<span class="m_1">TEACHER</span>
-				</h1>
-			</div>
-		</div>
-
-		<div class="col-lg-12 text-center mt-4">
-			<button class="btn btn-lg btn-outline-success rounded text-dark" href="#"
-				data-toggle="modal" data-target="#addCourse">
-				<span>Create New Course!</span>
-			</button>
-		</div>
-
-		<div class="row">
-			<div class="offset-1 col-lg-10 col-sm-10 col-md-10">
-				<div class="d-flex justify-content-center">
-					<% if (flashMessages) { %>
-						<% if (flashMessages.success) { %>
-								<div class="alert alert-success mt-4">
-										<%= flashMessages.success %>
-								</div>
-						<% } else if (flashMessages.error) { %>
-								<div class="alert alert-danger mt-4">
-										<%= flashMessages.error %>
-								</div>
-						<% } %>
-					<% } %>
-				</div>	
-			</div>
-		</div>
-
-		<div id="overviews" class="section wb">
-			<div class="container">
-				<div class="row d-lex justify-content-center">
-					<div class="col-lg-8 blog-post-single">
-						<div class="blog-author">
-							<div class="author-bio">
-								<h3 class="author_name">
-									Courses from: 
-										<em><strong>
-											<%= user.name %>
-										</em></strong>
-								</h3>
-							</div>
-						</div>
-
-					</div><!-- end col -->
-				</div><!-- end row -->
-
-				<div class="row mt-5">
-
-					<% for(let i=0; i < courses.length; i++) { %>
-						<div class="col-lg-6 col-md-6 col-12">
-							<div class="course-item mb-5">
-								<div class="image-blog">
-									<a href="/courses/<%= courses[i].slug %>">
-										<img src="/images/blog_1.jpg" alt="" class="img-fluid">
-									</a>
-								</div>
-								<div class="course-br">
-									<div class="course-title">
-										<h2><a href="/courses/<%= courses[i].slug %>" title="">
-												<%= courses[i].name %>
-											</a>
-										</h2>
-									</div>
-									<div class="course-desc">
-										<p>
-											<%= courses[i].description.substring(0, 100) + "..." %>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div><!-- end col -->
 						<% } %>
 
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</div><!-- end section -->
 
-		<!-- ADD Modal -->
-		<div class="modal fade" id="addCourse" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-body customer-box">
-						<!-- Tab panes -->
-						<div class="tab-content">
-							<div class="tab-pane active" id="Login">
-								<form method="POST" action="/courses" class="form-horizontal">
-									<div class="form-group">
-										<div class="col-sm-12">
-											<input type="text" name="name" class="form-control"
-												placeholder="Course Name">
-										</div>
+							<% if(user.role==='teacher' ) { %>
+
+								<div class="all-title-box">
+									<div class="container text-center">
+										<h1>
+											<em>
+												<%= user.name %>
+											</em>
+											<span class="m_1">TEACHER</span>
+										</h1>
 									</div>
-									<div class="form-group">
-										<div class="col-sm-12">
-											<input type="hidden" name="role"
-												class="form-control" value="<%= user.role %>">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-sm-12">
-											<textarea rows="8" name="description"
-												class="form-control"
-												placeholder="Course Description"
-												required></textarea>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-sm-12">
-											<select class="form-control" name="category">
-												<% for (let i=0; i< categories.length; i++) { %>
-													<option value="<%= categories[i]._id %>">
-														<%= categories[i].name %>
-													</option>
+								</div>
+
+								<div class="col-lg-12 text-center mt-4">
+									<button class="btn btn-lg btn-outline-success rounded text-dark" href="#" data-toggle="modal"
+										data-target="#addCourse">
+										<span>Create New Course!</span>
+									</button>
+								</div>
+
+								<div id="overviews" class="section wb">
+									<div class="container">
+										<div class="row d-lex justify-content-center">
+											<div class="row d-lex justify-content-center">
+												<div class="col-lg-12">
+													<% if (flashMessages) { %>
+														<% if (flashMessages.success) { %>
+															<div class="alert alert-success">
+																<%= flashMessages.success %>
+															</div>
+															<% } else if (flashMessages.error) { %>
+																<div class="alert alert-danger">
+																	<%= flashMessages.error %>
+																</div>
+																<% } %>
 													<% } %>
-											</select>
+												</div>
+											</div>
+
+
+
+											<div class="col-lg-8 blog-post-single">
+												<div class="blog-author">
+													<div class="author-bio">
+														<h3 class="author_name">
+															Courses from:
+															<em><strong>
+																	<%= user.name %>
+															</em></strong>
+														</h3>
+													</div>
+												</div>
+
+											</div><!-- end col -->
+										</div><!-- end row -->
+
+										<div class="row mt-5">
+
+											<% for(let i=0; i < courses.length; i++) { %>
+												<div class="col-lg-6 col-md-6 col-12">
+													<div class="course-item mb-5">
+														<div class="image-blog">
+															<a href="/courses/<%= courses[i].slug %>">
+																<img src="/images/blog_1.jpg" alt="" class="img-fluid">
+															</a>
+														</div>
+														<div class="course-br">
+															<div class="course-title">
+																<h2><a href="/courses/<%= courses[i].slug %>" title="">
+																		<%= courses[i].name %>
+																	</a>
+																</h2>
+															</div>
+															<div class="course-desc">
+																<p>
+																	<%= courses[i].description.substring(0, 100) + "..." %>
+																</p>
+															</div>
+														</div>
+													</div>
+												</div><!-- end col -->
+												<% } %>
+
+										</div><!-- end row -->
+									</div><!-- end container -->
+								</div><!-- end section -->
+
+								<!-- ADD Modal -->
+								<div class="modal fade" id="addCourse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-body customer-box">
+												<!-- Tab panes -->
+												<div class="tab-content">
+													<div class="tab-pane active" id="Login">
+														<form method="POST" action="/courses" class="form-horizontal">
+															<div class="form-group">
+																<div class="col-sm-12">
+																	<input type="text" name="name" class="form-control" placeholder="Course Name">
+																</div>
+															</div>
+															<div class="form-group">
+																<div class="col-sm-12">
+																	<input type="hidden" name="role" class="form-control" value="<%= user.role %>">
+																</div>
+															</div>
+															<div class="form-group">
+																<div class="col-sm-12">
+																	<textarea rows="8" name="description" class="form-control"
+																		placeholder="Course Description" required></textarea>
+																</div>
+															</div>
+															<div class="form-group">
+																<div class="col-sm-12">
+																	<select class="form-control" name="category">
+																		<% for (let i=0; i< categories.length; i++) { %>
+																			<option value="<%= categories[i]._id %>">
+																				<%= categories[i].name %>
+																			</option>
+																			<% } %>
+																	</select>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-sm-10">
+																	<button type="submit" class="btn btn-lg btn-outline-success rounded text-dark">
+																		Submit
+																	</button>
+																	<button type="submit" class="btn btn-lg btn-outline-danger rounded text-dark"
+																		data-dismiss="modal" aria-hidden="true">
+																		Cancel
+																	</button>
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-sm-10">
-											<button type="submit"
-												class="btn btn-lg btn-outline-success rounded text-dark">
-												Submit
-											</button>
-											<button type="submit"
-												class="btn btn-lg btn-outline-danger rounded text-dark"
-												data-dismiss="modal" aria-hidden="true">
-												Cancel
-											</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+								</div>
 
-		<% } %>
+								<% } %>
 
-	<% } %>
+									<% } %>
 
 
-<%- include('templates/_footer') %>
+										<%- include('templates/_footer') %>
 
-</body>
+	</body>
 
 	</html>
