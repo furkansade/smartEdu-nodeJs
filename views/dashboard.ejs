@@ -100,6 +100,24 @@
 			</button>
 		</div>
 
+		<div class="row">
+			<div class="offset-1 col-lg-10 col-sm-10 col-md-10">
+				<div class="d-flex justify-content-center">
+					<% if (flashMessages) { %>
+						<% if (flashMessages.success) { %>
+								<div class="alert alert-success mt-4">
+										<%= flashMessages.success %>
+								</div>
+						<% } else if (flashMessages.error) { %>
+								<div class="alert alert-danger mt-4">
+										<%= flashMessages.error %>
+								</div>
+						<% } %>
+					<% } %>
+				</div>	
+			</div>
+		</div>
+
 		<div id="overviews" class="section wb">
 			<div class="container">
 				<div class="row d-lex justify-content-center">

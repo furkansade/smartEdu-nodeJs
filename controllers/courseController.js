@@ -11,12 +11,13 @@ exports.createOneCourse = async (req, res) => {
       user: req.session.userID,
     });
 
+    req.flash("success", `Created new course: ${course.name}!`)
+
     res.status(201).redirect('/users/dashboard');
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    });
+
+    req.flash("error", `Somethings happened!`)
+    res.status(400).redirect('/users/dashboard');
   }
 };
 
@@ -37,7 +38,7 @@ exports.getAllCourses = async (req, res) => {
     }
 
     if (!query && !categorySlug) {
-      filter.name = "";
+      filter.name = '';
       filter.category = null;
     }
 
