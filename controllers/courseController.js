@@ -11,12 +11,11 @@ exports.createOneCourse = async (req, res) => {
       user: req.session.userID,
     });
 
-    req.flash("success", `Created new course: ${course.name}!`)
+    req.flash('success', `Created new course: ${course.name}!`);
 
     res.status(201).redirect('/users/dashboard');
   } catch (error) {
-
-    req.flash("error", `Somethings happened!`)
+    req.flash('error', `Somethings happened!`);
     res.status(400).redirect('/users/dashboard');
   }
 };
@@ -107,6 +106,40 @@ exports.releaseOneCourse = async (req, res) => {
     const user = await User.findById(req.session.userID);
     await user.courses.pull({ _id: req.body.course_id });
     await user.save();
+
+    res.status(200).redirect('/users/dashboard');
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  }
+};
+
+exports.deleteOneCourse = async (req, res) => {
+  try {
+    const course = await Course.findOneAndRemove({ slug: req.params.slug });
+    req.flash('error', `Deleted course: ${course.name}!`);
+
+    res.status(200).redirect('/users/dashboard');
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  }
+};
+
+exports.updateOneCourse = async (req, res) => {
+  try {
+    const course = await Course.findOne({ slug: req.params.slug });
+
+    course.name = req.body.name;
+    course.description = req.body.description;
+    course.category = req.body.category;
+    course.save();
+
+    req.flash('success', `Updated course: ${course.name}!`);
 
     res.status(200).redirect('/users/dashboard');
   } catch (error) {
