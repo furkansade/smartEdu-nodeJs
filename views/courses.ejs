@@ -21,7 +21,9 @@
 										<div class="col-lg-6 col-md-6 col-12">
 											<div class="course-item mb-5">
 												<div class="image-blog">
-													<img src="/images/blog_1.jpg" alt="" class="img-fluid">
+													<a href="/courses/<%= courses[i].slug %>">
+														<img src="/images/blog_1.jpg" alt="" class="img-fluid">
+													</a>
 												</div>
 												<div class="course-br">
 													<div class="course-title">
@@ -64,9 +66,11 @@
 									<h3 class="widget-title">Categories</h3>
 									<ul>
 										<% for(let i=0; i < categories.length; i++) { %>
-										<li><a href="/courses?categories=<%= categories[i].slug %>"><%= categories[i].name %></a></li>
-										<% } %>
-										<li><a href="/courses">All Categories!</a></li>
+											<li><a href="/courses?categories=<%= categories[i].slug %>">
+													<%= categories[i].name %>
+												</a></li>
+											<% } %>
+												<li><a href="/courses">All Categories!</a></li>
 									</ul>
 								</div>
 							</div>

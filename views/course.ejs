@@ -8,7 +8,9 @@
 
 				<div class="all-title-box">
 					<div class="container text-center">
-						<h1><%= course.name %><span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
+						<h1>
+							<%= course.name %><span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span>
+						</h1>
 					</div>
 				</div>
 
@@ -22,7 +24,11 @@
 									</div>
 									<div class="post-content">
 										<div class="post-date">
-											<span class="day"><%= course.category.name %></span>											
+											<a href="/courses?categories=<%= course.category.slug %>">
+												<span class="day btn btn-sm">
+													<%= course.category.name %>
+												</span>
+											</a>
 										</div>
 										<div class="meta-info-blog">
 											<span><i class="fa fa-calendar"></i> <a href="#">May 11, 2015</a> </span>
@@ -39,12 +45,22 @@
 												<%= course.description %>
 											</blockquote>
 										</div>
+										<div class="d-flex justify-content-end">
+											<form method="POST" action="/courses/enroll">
+												<input type="hidden" name="course_id" value="<%= course._id %>">
+												<button type="submit" class="btn btn-outline-primary rounded text-dark">
+													<span>Enroll!</span>
+												</button>
+											</form>
+										</div>
 									</div>
 								</div>
 
 								<div class="blog-author">
 									<div class="author-bio">
-										<h3 class="author_name"><a href="#"><%= course.user.name %></a></h3>
+										<h3 class="author_name"><a href="#">
+												<%= course.user.name %>
+											</a></h3>
 									</div>
 								</div>
 
@@ -65,9 +81,11 @@
 									<h3 class="widget-title">Categories</h3>
 									<ul>
 										<% for(let i=0; i < categories.length; i++) { %>
-										<li><a href="/courses?categories=<%= categories[i].slug %>"><%= categories[i].name %></a></li>
-										<% } %>
-										<li><a href="/courses">All Categories!</a></li>
+											<li><a href="/courses?categories=<%= categories[i].slug %>">
+													<%= categories[i].name %>
+												</a></li>
+											<% } %>
+												<li><a href="/courses">All Categories!</a></li>
 									</ul>
 								</div>
 							</div>
