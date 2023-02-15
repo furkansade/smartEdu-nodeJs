@@ -55,7 +55,20 @@
 								<div class="course-title">
 									<h2><a href="/courses/<%= user.courses[i].slug %>" title=""><%= user.courses[i].name %></a></h2>
 								</div>
-							</div>
+								<div class="course-desc">
+										<p>
+											<%= user.courses[i].description.substring(0, 100) + "..." %>
+										</p>
+									</div>
+								<div class="d-flex justify-content-end">
+									<form method="POST" action="/courses/release">
+										<input type="hidden" name="course_id" value="<%= user.courses[i]._id %>">
+										<button type="submit" class="btn btn-outline-danger rounded text-dark">
+											<span>Release!</span>
+										</button>
+									</form>
+								</div>
+							</div>				
 						</div>
 					</div><!-- end col -->
 					<% } %>
@@ -124,7 +137,7 @@
 									</div>
 									<div class="course-desc">
 										<p>
-											<%= courses[i].description %>
+											<%= courses[i].description.substring(0, 100) + "..." %>
 										</p>
 									</div>
 								</div>

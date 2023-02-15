@@ -24,12 +24,11 @@ exports.loginOneUser = async (req, res) => {
 
     if (user) {
       bcrypt.compare(password, user.password, (err, same) => {
-        // compare -> userPass =? inPass controller
-        if (same) {
+        
           // userSession //
           req.session.userID = user._id;
           res.status(200).redirect('/users/dashboard');
-        }
+          
       });
     }
   } catch (error) {

@@ -33,13 +33,19 @@
 													</div>
 													<div class="course-desc">
 														<p>
-															<%= courses[i].description %>
+															<%= courses[i].description.substring(0, 100) + "..." %>
 														</p>
 													</div>
 												</div>
 												<div class="course-meta-bot">
 													<ul>
-														<li><i class="fa fa-user" aria-hidden="true"></i>Teacher Name
+														<li>
+															<i class="fa fa-user" aria-hidden="true"></i>
+															<em>
+																<strong>
+																	<%= courses[i].user.name %>
+																</strong>
+															</em>
 														</li>
 													</ul>
 												</div>
